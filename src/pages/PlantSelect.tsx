@@ -114,6 +114,7 @@ export function PlantSelect() {
                 <Text style={styles.subtitle}>
                     você quer colocar sua planta?
                 </Text>
+
             </View>
 
             <View>
@@ -158,7 +159,7 @@ export function PlantSelect() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background
+        backgroundColor: colors.background,
     },
     header: {
         paddingHorizontal: 30

@@ -31,11 +31,10 @@ export function Header({ title }: HeaderProps) {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-
+        alignItems: 'center',
         paddingVertical: 20,
         marginTop: getStatusBarHeight(),
     },
