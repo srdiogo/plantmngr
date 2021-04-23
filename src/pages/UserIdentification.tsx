@@ -9,11 +9,13 @@ import {
     Platform,
     Keyboard,
     TouchableWithoutFeedback,
+    Alert
 } from 'react-native';
 import { Button } from '../components/Button';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { useNavigation } from "@react-navigation/core";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function UserIdentification() {
     const [isFocused, setIsFocused] = useState(false);
@@ -37,8 +39,22 @@ export function UserIdentification() {
         setName(value);
     }
 
-    function handleSubmit() {
-        navigation.navigate("Confirmation");
+    async function handleSubmit() {
+        if (!name)
+            return Alert.alert('Me diga como chamar você.');
+        else
+            try {
+                await AsyncStorage.setItem('@plantmngr:user', name);
+                navigation.navigate("Confirmation", {
+                    title: 'Prontinho',
+                    subtitle: 'Agora vamos cuidar das suas plantas com muito carinho!',
+                    buttonTitle: 'Começar',
+                    icon: 'smile',
+                    nextScreen: 'PlantSelect'
+                });
+            } catch {
+                return Alert.alert('não foi possível chamar seu nome');
+            }
     }
 
     return (
