@@ -71,58 +71,60 @@ export function PlantSave() {
         }
     }
     return (
-        <View style={styles.container}>
-            <View style={styles.plantinfo}>
-                <SvgFromUri
-                    uri={plant.photo}
-                    height={150}
-                    width={150} />
-                <Text style={styles.plantname}>
-                    {plant.name}
-                </Text>
-                <Text style={styles.plantabout}>
-                    {plant.about}
-                </Text>
-            </View>
-            <View style={styles.controller}>
-                <View style={styles.tipcontainer}>
-                    <Image
-                        source={waterDrop}
-                        style={styles.tipimage}
-                    />
-                    <Text style={styles.tiptext}>
-                        {plant.water_tips}
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+            <View style={styles.container}>
+                <View style={styles.plantinfo}>
+                    <SvgFromUri
+                        uri={plant.photo}
+                        height={150}
+                        width={150} />
+                    <Text style={styles.plantname}>
+                        {plant.name}
+                    </Text>
+                    <Text style={styles.plantabout}>
+                        {plant.about}
+                    </Text>
+                </View>
+                <View style={styles.controller}>
+                    <View style={styles.tipcontainer}>
+                        <Image
+                            source={waterDrop}
+                            style={styles.tipimage}
+                        />
+                        <Text style={styles.tiptext}>
+                            {plant.water_tips}
+                        </Text>
+
+                    </View>
+                    <Text style={styles.alertlabel}>
+                        escolha o melhor horário para ser lembrado:
                     </Text>
 
+                    {showDatePicker && (<DateTimePicker
+                        value={selectedDateTime}
+                        mode="time"
+                        display="spinner"
+                        onChange={handleChangeTime}
+                    />)}
+                    {
+                        Platform.OS === 'android' && (
+                            <TouchableOpacity
+                                style={styles.datetimepickerbutton}
+                                onPress={handleOpenDteTimePickerAndroid}
+                            >
+                                <Text style={styles.datetimepicker}>
+                                    {`Mudar ${format(selectedDateTime, 'HH:mm')}`}
+                                </Text>
+                            </TouchableOpacity>
+                        )
+                    }
+                    <Button
+                        title={'Cadastrar Planta'}
+                        onPress={handleSave}
+                    />
                 </View>
-                <Text style={styles.alertlabel}>
-                    escolha o melhor horário para ser lembrado:
-                </Text>
-
-                {showDatePicker && (<DateTimePicker
-                    value={selectedDateTime}
-                    mode="time"
-                    display="spinner"
-                    onChange={handleChangeTime}
-                />)}
-                {
-                    Platform.OS === 'android' && (
-                        <TouchableOpacity
-                            style={styles.datetimepickerbutton}
-                            onPress={handleOpenDteTimePickerAndroid}
-                        >
-                            <Text style={styles.datetimepicker}>
-                                {`Mudar ${format(selectedDateTime, 'HH:mm')}`}
-                            </Text>
-                        </TouchableOpacity>
-                    )
-                }
-                <Button
-                    title={'Cadastrar Planta'}
-                    onPress={handleSave}
-                />
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -130,7 +132,7 @@ export function PlantSave() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "space-between",
+        //justifyContent: "space-between",
         color: colors.shape,
     },
     plantinfo: {
